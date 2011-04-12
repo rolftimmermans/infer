@@ -19,24 +19,34 @@ module Infer
       end
 
       def visit_ruby_literal(literal)
-        Inferred::Type.create literal.value.class
+        Inferred::Types.only literal.value.class
       end
       alias visit_ruby_nil visit_ruby_literal
+      alias visit_ruby_true visit_ruby_literal
+      alias visit_ruby_false visit_ruby_literal
 
       def visit_ruby_string(string)
-        Inferred::Type.create String
+        Inferred::Types.only String
       end
 
       def visit_ruby_hash(hash)
-        Inferred::Type.create Hash
+        Inferred::Types.only Hash
       end
 
       def visit_ruby_array(array)
-        Inferred::Type.create Array
+        Inferred::Types.only Array
       end
 
       def visit_ruby_range(range)
-        Inferred::Type.create Range
+        Inferred::Types.only Range
+      end
+
+      def visit_ruby_binary_operator(binary)
+        case binary.operator.token
+        when "or",  "||" then visit(binary.left) + visit(binary.right)
+        when "and", "&&" then visit(binary.left) + visit(binary.right)
+        else raise NotImplementedError
+        end
       end
 
       def visit_string(string)

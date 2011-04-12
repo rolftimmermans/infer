@@ -2,15 +2,15 @@ require File.expand_path("../test_helper", File.dirname(__FILE__))
 
 class TernaryLogicKleeneanTest < Test::Unit::TestCase
   def truthy
-    Infer::TernaryLogic::TRUE
+    TernaryLogic::TRUE
   end
 
   def falsy
-    Infer::TernaryLogic::FALSE
+    TernaryLogic::FALSE
   end
 
   def unknown
-    Infer::TernaryLogic::UNKNOWN
+    TernaryLogic::UNKNOWN
   end
 
   context "truthy object" do

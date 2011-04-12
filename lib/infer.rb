@@ -2,9 +2,7 @@ $: << "~/Code/syntaxtree/lib"
 
 require "infer/ternary_logic/truth"
 require "infer/ternary_logic/kleenean"
-require "infer/inferred/type"
-require "infer/inferred/type_list"
-require "infer/inferrer/type_inferrer"
+require "infer/inferred/types"
 
 # require "syntaxtree"
 # require "syntax_tree/visitors/base"
@@ -65,8 +63,8 @@ require "infer/inferrer/type_inferrer"
 #
 #   class Type
 #     class << self
-#       def create(type)
-#         Types.new Type.new(type)
+#       def only(type)
+#         Types.new Types.new(type)
 #       end
 #     end
 #
@@ -108,20 +106,20 @@ require "infer/inferrer/type_inferrer"
 #
 #   class Value
 #     class << self
-#       def create(value)
-#         Types.new Type.new(value.class)
+#       def only(value)
+#         Types.new Types.new(value.class)
 #       end
 #
 #       def true!
-#         create true
+#         only true
 #       end
 #
 #       def false!
-#         create false
+#         only false
 #       end
 #
 #       def nil!
-#         create nil
+#         only nil
 #       end
 #     end
 #   end
@@ -150,19 +148,19 @@ require "infer/inferrer/type_inferrer"
 #     end
 #
 #     def visit_ruby_literal(literal)
-#       Inferred::Value.create(literal.value)
+#       Inferred::Value.only(literal.value)
 #     end
 #
 #     def visit_ruby_dynasymbol(symbol)
-#       Inferred::Type.create(Symbol)
+#       Inferred::Types.only(Symbol)
 #     end
 #
 #     def visit_ruby_array(array)
-#       Inferred::Type.create(Array)
+#       Inferred::Types.only(Array)
 #     end
 #
 #     def visit_ruby_hash(hash)
-#       Inferred::Type.create(Hash)
+#       Inferred::Types.only(Hash)
 #     end
 #
 #
@@ -198,11 +196,11 @@ require "infer/inferrer/type_inferrer"
 #
 #
 #     def visit_ruby_variable(variable)
-#       Inferred::Type.create(Object)
+#       Inferred::Types.only(Object)
 #     end
 #
 #     def visit_ruby_call(method)
-#       Inferred::Type.create(Object)
+#       Inferred::Types.only(Object)
 #     end
 #
 #
